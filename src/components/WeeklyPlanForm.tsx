@@ -1,3 +1,5 @@
+'use client';
+
 import { TextField, Button, Box } from '@mui/material';
 import { WeeklyPlan } from '@/types/weeklyPlan';
 

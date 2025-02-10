@@ -1,3 +1,5 @@
+'use client';
+
 import { List, ListItem, ListItemButton, ListItemText, Paper, Typography } from '@mui/material';
 import { WeeklyPlansState } from '@/types/weeklyPlan';
 
