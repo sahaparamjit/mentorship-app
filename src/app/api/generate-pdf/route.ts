@@ -11,6 +11,26 @@ export async function POST(request: Request) {
     // Create new PDF document
     const doc = new jsPDF();
     
+    // Add watermark
+    doc.setTextColor(200, 200, 200); // Light gray color
+    doc.setFontSize(40);
+    doc.setFont('helvetica', 'italic');
+    
+    // Calculate center of page
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    
+    // Add rotated text
+    doc.text("MENTOR : "+plan.Mentor_Name.toUpperCase(), pageWidth/2, pageHeight/1.5, {
+      align: 'center',
+      angle: 45
+    });
+    
+    // Reset text color and font for regular content
+    doc.setTextColor(0, 0, 0);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+
     // Helper function to add wrapped text
     const addWrappedText = (text: string, x: number, y: number, maxWidth: number) => {
       const lines = doc.splitTextToSize(text, maxWidth);
@@ -89,11 +109,16 @@ export async function POST(request: Request) {
 
   } catch (error) {
     console.error('Route handler error:', error);
+    
+    // Properly type the error object
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+    const errorStack = error instanceof Error ? error.stack : undefined;
+    
     return NextResponse.json(
       { 
         error: 'Failed to generate PDF', 
-        details: error.message,
-        stack: error.stack 
+        details: errorMessage,
+        stack: errorStack
       },
       { status: 500 }
     );

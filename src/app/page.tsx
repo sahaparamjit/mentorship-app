@@ -96,7 +96,8 @@ export default function Home() {
       alert('Plan saved and PDF generated successfully!');
     } catch (error) {
       console.error('PDF generation error:', error);
-      alert(`Error generating PDF: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Error generating PDF: ${errorMessage}`);
     }
   };
 

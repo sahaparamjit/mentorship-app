@@ -9,10 +9,6 @@ const nextConfig: NextConfig = {
       encoding: false
     };
     return config;
-  },
-  // Increase API response size limit if needed
-  api: {
-    responseLimit: '8mb',
   }
 };
 
